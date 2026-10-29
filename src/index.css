@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+@theme {
+  /* Re-theme the existing blue utilities as the portfolio's violet accent. */
+  --color-blue-300: #e9d5ff;
+  --color-blue-400: #c084fc;
+  --color-blue-500: #a855f7;
+  --color-blue-600: #9333ea;
+  --color-blue-950: #3b0764;
+  --color-cyan-400: #e879f9;
+
+  /* Sharpen supporting text while keeping the slate hierarchy intact. */
+  --color-zinc-400: #b4b1bd;
+  --color-zinc-500: #96929f;
+  --color-zinc-600: #7d7987;
+  --color-zinc-700: #666271;
+  --color-zinc-800: #45424f;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+  --portfolio-bg: #07060a;
+  --portfolio-panel: rgba(18, 14, 24, 0.74);
+  --portfolio-text: #f7f5fa;
+  --portfolio-accent: #a855f7;
+  --portfolio-accent-bright: #c084fc;
+  --portfolio-pink: #d946ef;
+  --portfolio-glass-border: rgba(231, 213, 255, 0.15);
+  --portfolio-glass-highlight: rgba(255, 255, 255, 0.08);
+  --portfolio-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  scrollbar-color: #51455f #09080d;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--portfolio-bg);
+  background-image:
+    radial-gradient(ellipse at 12% 9%, rgba(124, 58, 237, 0.13), transparent 34rem),
+    radial-gradient(ellipse at 88% 31%, rgba(217, 70, 239, 0.075), transparent 32rem),
+    linear-gradient(180deg, #08070c 0%, #07060a 42%, #09070d 100%);
+  background-attachment: fixed;
+  color: var(--portfolio-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+main {
+  position: relative;
+  isolation: isolate;
+}
+
+section {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  background-color: transparent !important;
+  scroll-margin-top: 5rem;
+}
+
+/* Framed portrait card for the sections after the hero. */
+.scrolling-portrait {
+  position: fixed;
+  z-index: 0;
+  top: 50%;
+  right: clamp(12px, 2.5vw, 36px);
+  width: clamp(180px, 21vw, 300px);
+  height: min(46vh, 460px);
+  min-height: 280px;
+  overflow: hidden;
+  border: 1px solid rgba(231, 213, 255, 0.2);
+  border-radius: 30px;
+  background: rgba(18, 14, 24, 0.85);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.38),
+    0 0 50px rgba(168, 85, 247, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(22px, -50%, 0) scale(0.98);
+  transition: opacity 520ms ease, transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.scrolling-portrait.is-visible {
+  opacity: 0.82;
+  transform: translate3d(0, -50%, 0) scale(1);
+}
+
+.scrolling-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  filter: saturate(0.86) contrast(1.02);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 26%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 26%, #000 100%);
+}
+
+.scrolling-portrait::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(0deg, rgba(7, 6, 10, 0.48), transparent 42%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  content: "";
+}
+
+section:not(#home)::before {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(192, 132, 252, 0.2),
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  content: "";
+  pointer-events: none;
+}
+
+/* Tailwind's existing rounded cards become consistent, layered glass panels. */
+[class~="rounded-2xl"][class~="border"] {
+  border-color: var(--portfolio-glass-border) !important;
+  background-color: var(--portfolio-panel) !important;
+  background-image:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.012)),
+    radial-gradient(ellipse at 100% 0%, rgba(168, 85, 247, 0.14), transparent 48%) !important;
+  box-shadow:
+    var(--portfolio-shadow),
+    inset 0 1px 0 var(--portfolio-glass-highlight) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+button[aria-pressed="true"][class~="rounded-2xl"] {
+  border-color: rgba(192, 132, 252, 0.48) !important;
+  background-image:
+    linear-gradient(145deg, rgba(192, 132, 252, 0.15), rgba(255, 255, 255, 0.025)),
+    radial-gradient(ellipse at 100% 0%, rgba(217, 70, 239, 0.16), transparent 52%) !important;
+  box-shadow:
+    0 24px 75px rgba(0, 0, 0, 0.48),
+    0 0 38px rgba(168, 85, 247, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  opacity: 1 !important;
+}
+
+button[aria-pressed="false"][class~="rounded-2xl"] {
+  opacity: 0.5 !important;
+}
+
+/* The nav and floating tech badges already opt into Tailwind backdrop blur. */
+[class~="backdrop-blur-xl"] {
+  border-color: rgba(231, 213, 255, 0.16) !important;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(20, 13, 28, 0.76)) !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+
+/* Replace literal blue in the existing decorative radial utilities. */
+[class*="bg-[radial-gradient"] {
+  background-image: radial-gradient(
+    circle,
+    rgba(168, 85, 247, 0.2) 0%,
+    rgba(217, 70, 239, 0.08) 38%,
+    rgba(7, 6, 10, 0.04) 70%,
+    transparent 100%
+  ) !important;
+}
+
+[class*="background-image:linear-gradient"] {
+  background-image:
+    linear-gradient(rgba(192, 132, 252, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192, 132, 252, 0.035) 1px, transparent 1px);
+}
+
+[class*="bg-[linear-gradient"] {
+  background-image:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.012)),
+    radial-gradient(ellipse at 100% 0%, rgba(168, 85, 247, 0.16), transparent 54%) !important;
+}
+
+[class~="bg-blue-600"] {
+  background-image: linear-gradient(135deg, #a855f7, #7e22ce) !important;
+  box-shadow: 0 12px 34px rgba(168, 85, 247, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+input,
+textarea,
+select {
+  color: var(--portfolio-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #77717f;
+  opacity: 1;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--portfolio-accent-bright);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.42);
+  color: #fff;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [class~="rounded-2xl"][class~="border"]:hover {
+    border-color: rgba(216, 180, 254, 0.28) !important;
+  }
+
+  button[aria-pressed="false"][class~="rounded-2xl"]:hover {
+    opacity: 0.78 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  [class~="rounded-2xl"][class~="border"] {
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    backdrop-filter: blur(14px) saturate(130%);
+  }
+}
+
+@media (max-width: 768px) {
+  .scrolling-portrait {
+    right: 8px;
+    width: clamp(150px, 30vw, 220px);
+    height: min(36vh, 310px);
+    min-height: 210px;
+    border-radius: 24px;
+  }
+
+  .scrolling-portrait.is-visible {
+    opacity: 0.62;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  [class~="rounded-2xl"][class~="border"],
+  [class~="backdrop-blur-xl"] {
+    background-color: rgba(18, 14, 24, 0.96) !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrolling-portrait {
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
