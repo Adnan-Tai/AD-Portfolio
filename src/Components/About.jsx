@@ -8,7 +8,7 @@ import {
 } from "react-icons/fi";
 
 import { Bio } from "../Data/Data";
-import profileImage from "../assets/profilephoto.jpeg";
+import profileImage from "../assets/My Pic.png";
 
 export default function About() {
   return (

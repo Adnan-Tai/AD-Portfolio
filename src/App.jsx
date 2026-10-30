@@ -7,7 +7,7 @@ import Projects from "./Components/Projects";
 import Skills from "./Components/Skills";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
-import profileImage from "./assets/profilephoto.jpeg";
+import profileImage from "./assets/My Pic.png";
 
 function App() {
   const [showScrollingPortrait, setShowScrollingPortrait] = useState(false);

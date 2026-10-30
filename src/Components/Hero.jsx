@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import { FaReact, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { Bio } from "../Data/Data";
-import profileImage from "../assets/profilephoto.jpeg";
+import profileImage from "../assets/My Pic.png";
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
